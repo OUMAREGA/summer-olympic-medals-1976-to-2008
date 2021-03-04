@@ -1,1 +1,7 @@
-jupyter==1.0.0
+jupyter
+scikit-learn
+matplotlib
+seaborn
+pandas
+numpy
+virtualenv
