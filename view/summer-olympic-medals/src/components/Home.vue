@@ -22,6 +22,13 @@
             Top Ten Bronze
           </router-link>
         </li>
+
+        <li class="nav-item">
+          <router-link class="nav-link mr-lg-5 mr-md-5" :to="{name: 'predict'}">
+            Prediction
+          </router-link>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -49,5 +56,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.router-link-active{
+  color: var(--app-primary-color) !important;
 }
 </style>

@@ -1,16 +1,16 @@
 <template>
   <div class="small">
-    <bar-chart :chart-data="datacollection"></bar-chart>
+    <scatter-chart :chart-data="datacollection"></scatter-chart>
   </div>
 </template>
 
 <script>
-import BarChart from './BarChart.js'
+import ScatterChart from './ScatterChart.js'
 import axios from 'axios'
 
 export default {
   components: {
-    BarChart
+    ScatterChart
   },
   data () {
     return {
@@ -24,8 +24,8 @@ export default {
       'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
     }
 
-    axios.get('http://127.0.0.1:5000/top_ten_gold', {headers}).then((response) => {
-          this.data = response.data.Medal;
+    axios.get('http://127.0.0.1:5000/scatter', {headers}).then((response) => {
+          console.log(response.data.Medal) ;
 
           const labels = Object.keys(response.data.Medal);
           const values = Object.values(response.data.Medal);

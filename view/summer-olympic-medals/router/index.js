@@ -25,6 +25,11 @@ Vue.use(VueRouter);
     name: 'top_ten_bronze',
     component: () => import(/* webpackChunkName: "about" */ '../src/components/Bronze.vue'),
   },
+ {
+      path: '/predict',
+      name: 'predict',
+     component: () => import(/* webpackChunkName: "about" */ '../src/components/Predict'),
+  },
   {
     path: "*",
     redirect: "/"
