@@ -1,47 +1,91 @@
 <template>
-  <div class="small">
-    <scatter-chart :chart-data="datacollection"></scatter-chart>
-  </div>
+
+  <section>
+    <div class="small row">
+      <div class="col">Nombre de médailles :</div>
+      <div class="col"><input v-model="form.medal" name="medal" required="required" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Nombre de médailles d'or : </div>
+      <div class="col"><input v-model="form.gold"  name="gold" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Nombre de médailles d'argent : </div>
+      <div class="col"><input v-model="form.silver"  name="silver" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Nombre de médailles de bronze : </div>
+      <div class="col"><input v-model="form.bronze"  name="bronze" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Nombre de participant : </div>
+      <div class="col"><input v-model="form.number_of_participant"  name="number_of_participant" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">PIB : </div>
+      <div class="col"><input v-model="form.gdp"  name="gdp" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Overall Rank : </div>
+      <div class="col"><input v-model="form.rank"  name="number_of_participant" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col">Score happyness : </div>
+      <div class="col"><input v-model="form.score"  name="number_of_participant" /></div>
+      <div class="w-100 mb-2"></div>
+
+      <div class="col"></div>
+      <div class="col center"><button @click="predict" class="btn-dark text-center" > Go </button> </div>
+    </div>
+
+    <div v-if="cluster" >
+      <div class="alert alert-success" role="alert">
+        <ul>
+          <li> cluster 0 : Pas de chance de gagner beaucoup de médailles dont or - cluster 3: Beaucoup de chances de gagner des médailles dont or </li>
+        </ul>
+        Ces valeurs appartiennent au cluster {{cluster}}
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <script>
-import ScatterChart from './ScatterChart.js'
 import axios from 'axios'
 
 export default {
   components: {
-    ScatterChart
+
   },
   data () {
     return {
-      datacollection: null
+      form: {
+        medal:null,
+        gold:null,
+        silver:null,
+        bronze:null,
+        score:null,
+        rank:null,
+        gdp:null,
+        number_of_participant: null
+      },
+      cluster:null
     }
   },
-  mounted () {
+  methods : {
+    predict () {
 
-    const headers = {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    }
+      this.cluster = null
 
-    axios.get('http://127.0.0.1:5000/scatter', {headers}).then((response) => {
-          console.log(response.data.Medal) ;
+      const headers = {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
 
-          const labels = Object.keys(response.data.Medal);
-          const values = Object.values(response.data.Medal);
-
-          this.datacollection = {
-            labels: labels,
-            datasets: [
-              {
-                label: 'Top Ten Gold Medals',
-                backgroundColor: ["#41B883", "#E46651", "#00D8FF","#711183", "#563619", "#b9cec2","#ced69e","#a9cfe5","#f7ef07","#af422f"],
-                data: values
-              }
-              ]
-
-          }
+      axios.post('http://127.0.0.1:5000/predict', this.form, {headers}).then((response) => {
+        this.cluster = response.data.cluster;
       })
+    }
   }
 }
 </script>
