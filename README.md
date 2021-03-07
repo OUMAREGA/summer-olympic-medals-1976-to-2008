@@ -9,9 +9,9 @@ Par :
 ### Contexte
 Le but de ce projet est de realiser un kmean sur un jeu de données : Summer olympic medals (1976-2008)
 Partager par cluster, correler et predire etc
-### Data
+### Jeu de données
 
-[Data](https://www.kaggle.com/divyansh22/summer-olympics-medals) .
+[data](https://www.kaggle.com/divyansh22/summer-olympics-medals) : Summer olympic medals (1976-2008)
 
 ## Configuration
 
@@ -60,7 +60,7 @@ flask run
 ### Démarrer le front-end vuejs
 
 ```
-cd	views/summer-olympic-medals
+cd views/summer-olympic-medals
 npm install
 npm run serve
 ```
